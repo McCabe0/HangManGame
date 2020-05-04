@@ -7,15 +7,24 @@ public class GameLogic {
     public static final int MAX_MISSES = 7;
 
     public GameLogic(String answer){
-        this.answer = answer;
+        this.answer = answer.toLowerCase();
         hits = "";
         misses = "";
     }
 
-    public boolean applyGuess(char letter) {
+    private char normalisedGuessed(char letter){
+        if (! Character.isLetter(letter)){
+            throw new IllegalArgumentException("A letter is required");
+        }
+        letter = Character.toLowerCase(letter);
         if (misses.indexOf(letter) != -1 || hits.indexOf(letter) != -1) {
             throw new IllegalArgumentException(letter + " has already been guessed");
         }
+        return letter;
+    }
+
+    public boolean applyGuess(char letter) {
+        letter = normalisedGuessed(letter);
         boolean isHit = answer.indexOf(letter) != -1;
         if (isHit){
             hits += letter;
