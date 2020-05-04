@@ -19,10 +19,9 @@ public class Prompter {
         do {
             System.out.println("Enter a letter:  ");
             String guessInput = scanner.nextLine();
-            char guess = guessInput.charAt(0);
 
             try {
-                isHit = gameLogic.applyGuess(guess);
+                isHit = gameLogic.applyGuess(guessInput);
                 isAcceptable = true;
             } catch (IllegalArgumentException iae) {
                 System.out.printf("%s, Please try again. %n",
@@ -37,6 +36,15 @@ public class Prompter {
                 gameLogic.getRemainingTries(),
                 gameLogic.getCurrentProgress());
 
+    }
+
+    public void displayOutcome(){
+        if (gameLogic.isWon()){
+            System.out.println("CONGRATS!! YOU WON");
+        }else {
+            System.out.printf("Sorry you have run out of guesses, the answer was %s",
+                    gameLogic.getAnswer());
+        }
     }
 
 }
