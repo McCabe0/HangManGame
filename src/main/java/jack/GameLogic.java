@@ -1,19 +1,25 @@
 package jack;
 
+import java.util.Scanner;
+
 public class GameLogic {
     private String answer;
     private String hits;
     private String misses;
     public static final int MAX_MISSES = 7;
 
-    public GameLogic(String answer){
+    public GameLogic(String answer) {
         this.answer = answer.toLowerCase();
         hits = "";
         misses = "";
     }
 
-    private char normalisedGuessed(char letter){
-        if (! Character.isLetter(letter)){
+    public String getAnswer() {
+        return answer;
+    }
+
+    private char normalisedGuessed(char letter) {
+        if (!Character.isLetter(letter)) {
             throw new IllegalArgumentException("A letter is required");
         }
         letter = Character.toLowerCase(letter);
@@ -22,11 +28,17 @@ public class GameLogic {
         }
         return letter;
     }
+    public boolean applyGuess(String letters){
+        if (letters.length() == 0){
+            throw new IllegalArgumentException("no letter found");
+        }
+        return applyGuess(letters.charAt(0));
+    }
 
     public boolean applyGuess(char letter) {
         letter = normalisedGuessed(letter);
         boolean isHit = answer.indexOf(letter) != -1;
-        if (isHit){
+        if (isHit) {
             hits += letter;
         } else {
             misses += letter;
@@ -34,23 +46,26 @@ public class GameLogic {
         return isHit;
     }
 
-    public int getRemainingTries(){
+    public int getRemainingTries() {
         return MAX_MISSES - misses.length();
     }
 
-    public String getCurrentProgress(){
+    public String getCurrentProgress() {
         String progress = "";
-        for (char letter : answer.toCharArray()){
+        for (char letter : answer.toCharArray()) {
             char display = '-';
             if (hits.indexOf(letter) != -1) {
                 display = letter;
             }
             progress += display;
         }
+
         return progress;
     }
+    public boolean isWon(){
 
-
+        return getCurrentProgress().indexOf('-') == -1;
+    }
 
 
 }

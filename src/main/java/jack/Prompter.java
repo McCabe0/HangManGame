@@ -7,6 +7,7 @@ public class Prompter {
     private GameLogic gameLogic;
 
 
+
     public Prompter(GameLogic gameLogic) {
         this.gameLogic = gameLogic;
     }
