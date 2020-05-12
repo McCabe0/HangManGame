@@ -35,6 +35,8 @@ public class GameLogic {
         return applyGuess(letters.charAt(0));
     }
 
+
+
     public boolean applyGuess(char letter) {
         letter = normalisedGuessed(letter);
         boolean isHit = answer.indexOf(letter) != -1;
